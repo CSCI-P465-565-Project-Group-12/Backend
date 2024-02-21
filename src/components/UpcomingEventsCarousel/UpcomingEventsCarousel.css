@@ -1,0 +1,65 @@
+.upcoming-events-carousel {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  overflow-y: hidden;
+}
+.carousel-inner {
+  display: flex;
+  height: inherit;
+  width: inherit;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #00b4d8;
+  box-shadow: 0 0 10px 0 #000;
+  transition: all 1.75s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.carousel-inner img {
+  z-index: 0;
+  width: inherit;
+  height: inherit;
+  object-fit: cover;
+}
+
+.carousel-text {
+  position: absolute;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 60%;
+  height: 100%;
+  z-index: 1;
+  background-color: rgba(0, 180, 216, 0.5);
+  transition: all 1.75s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.carousel-text h1 {
+  font-size: 3rem;
+  color: #caf0f8;
+  margin-bottom: 0;
+  padding: 10px;
+}
+.navigation-btns {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  z-index: 2;
+  cursor: pointer;
+  color: #caf0f8;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  padding: 0.5rem;
+  transition: all 0.3s ease;
+}
+.navigation-btns i {
+  font-size: 1rem;
+}

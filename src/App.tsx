@@ -1,11 +1,14 @@
 import { Route, Routes } from "react-router";
-import VenueOwnerPage from "./pages/VenueOwnerPage/VenueOwnerPage";
-
+import HomePage from "./pages/HomePage/HomePage";
+import "./App.css";
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<VenueOwnerPage />} />
-    </Routes>
+    <>
+      <h1 id="logo">BashBoss</h1>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+      </Routes>
+    </>
   );
 }
 

@@ -1,0 +1,8 @@
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
+
+#logo {
+  font-family: "Pacifico", cursive;
+  color: #caf0f8;
+  text-align: center;
+  margin: 1rem 0;
+}

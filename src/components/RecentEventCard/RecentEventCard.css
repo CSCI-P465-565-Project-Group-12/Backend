@@ -1,0 +1,51 @@
+.recent-event-card-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: row;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+.vertical-header {
+  display: flex;
+  width: 10%;
+  background-color: #161b33;
+}
+.vertical-header h1 {
+  writing-mode: vertical-lr;
+  /* text-orientation: sideways; */
+  transform: rotate(180deg);
+  margin: 0%;
+  font-size: 2rem;
+}
+.recent-event-card {
+  position: relative;
+  display: flex;
+  width: 90%;
+  height: 100%;
+  flex-direction: column;
+  background-color: inherit;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+.recent-event-card__image img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+.recent-event-card__info {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  width: inherit;
+  z-index: 2;
+  padding: 1rem;
+  background-color: rgba(0, 180, 216, 0.5);
+}
