@@ -1,0 +1,14 @@
+.home-page-layout-cards {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #00b4d8;
+  box-shadow: 0 0 10px 0 #000;
+}
+
+.home-page-layout-cards i {
+  font-size: 2rem;
+  color: #caf0f8;
+  cursor: pointer;
+}
