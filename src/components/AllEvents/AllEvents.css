@@ -8,3 +8,16 @@
   gap: 25px;
   overflow-y: scroll;
 }
+.all-events-container::-webkit-scrollbar {
+  width: 10px;
+}
+
+.all-events-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.all-events-container::-webkit-scrollbar-thumb {
+  background-color: #caf0f8;
+  border-radius: 8px;
+  max-height: 40px;
+}

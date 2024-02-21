@@ -1,21 +1,30 @@
+import { useNavigate } from "react-router";
 import AllEvents from "../../components/AllEvents/AllEvents";
 import RecentEventCard from "../../components/RecentEventCard/RecentEventCard";
 import HomePageLayoutCards from "../../components/UI/HomePageLayoutCards/HomePageLayoutCards";
 import UpcomingEventsCarousel from "../../components/UpcomingEventsCarousel/UpcomingEventsCarousel";
-import { events } from "../../dummyData";
+// import { events } from "../../dummyData";
 import "./HomPage.css";
+import { useSelector } from "react-redux";
+import { IEvent } from "../../IEventInterface";
 
 const HomePage = () => {
+  const navigate = useNavigate();
+  const events = useSelector((state: any) => state.events.events);
   const upcomingEvents = events
-    .filter((event) => new Date(event.date).getTime() < new Date().getTime())
+    .filter(
+      (event: IEvent) => new Date(event.date).getTime() < new Date().getTime()
+    )
     .slice(0, 2);
   const recentEvent = events
-    .filter((event) => new Date(event.date).getTime() > new Date().getTime())
+    .filter(
+      (event: IEvent) => new Date(event.date).getTime() > new Date().getTime()
+    )
     .slice(0, 1);
 
   const uniqueVenues = events
-    .filter((a, b) => events.indexOf(a) === b)
-    .map((event) => event.venue);
+    .filter((a: IEvent, b: IEvent) => events.indexOf(a) === b)
+    .map((event: IEvent) => event.venue);
 
   const stats: any = {
     noOfAttendees: 90,
@@ -33,7 +42,11 @@ const HomePage = () => {
         <RecentEventCard {...recentEvent[0]} />
       </HomePageLayoutCards>
       <HomePageLayoutCards width="10%" height="50%">
-        <i className="bi bi-plus-circle-fill" />
+        <i className="bi bi-person-badge-fill" />
+        <i
+          className="bi bi-plus-circle-fill"
+          onClick={() => navigate("/create-event")}
+        />
         <i className="bi bi-pencil-square" />
         <i className="bi bi-trash" />
       </HomePageLayoutCards>

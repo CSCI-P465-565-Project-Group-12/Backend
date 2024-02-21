@@ -1,32 +1,18 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { IEvent, IEvents } from "../IEventInterface";
+import { events } from "../dummyData";
 
-interface IEvents {
-    title: string;
-    date: string;
-    venue: string;
-    image: string;
-    time?: string;
-    }
 
-const initialState: IEvents = {
-    title: "",
-    date: "",
-    venue: "",
-    image: "",
-    time: "",
+const initialState: IEvents= {
+    events: events,
 };
 
 export const eventsSlice = createSlice({
     name: "events",
     initialState: initialState,
     reducers: {
-        addEvent: (state, action: PayloadAction<IEvents>) => {
-            state.title = action.payload.title;
-            state.date = action.payload.date;
-            state.venue = action.payload.venue;
-            state.image = action.payload.image;
-            state.time = action.payload.time;
-
+        addEvent: (state, action: PayloadAction<IEvent>) => {
+            state.events.push(action.payload);
         },
     },
 });

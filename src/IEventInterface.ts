@@ -4,6 +4,7 @@ export interface IEvent {
     venue: string;
     image: string;
     time?: string;
+    description?: string;
 }
 export interface IEvents {
     events: IEvent[];
