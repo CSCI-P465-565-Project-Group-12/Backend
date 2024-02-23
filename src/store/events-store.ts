@@ -4,7 +4,7 @@ import { events } from "../dummyData";
 
 
 const initialState: IEvents= {
-    events: events,
+    events: [],
 };
 
 export const eventsSlice = createSlice({
@@ -13,6 +13,7 @@ export const eventsSlice = createSlice({
     reducers: {
         addEvent: (state, action: PayloadAction<IEvent>) => {
             state.events.push(action.payload);
+            events.push(action.payload);
         },
     },
 });

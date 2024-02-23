@@ -17,7 +17,8 @@ const CreateEventPage = () => {
   });
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const submitHandler = () => {
+  const submitHandler = (e: any) => {
+    e.preventDefault();
     dispatch(eventsActions.addEvent(event));
     navigate("/");
   };
@@ -104,9 +105,7 @@ const CreateEventPage = () => {
               />
             </div>
             <div className="form-control">
-              <button type="submit" onClick={submitHandler}>
-                Create Event
-              </button>
+              <button onClick={(e) => submitHandler(e)}>Create Event</button>
             </div>
           </form>
         </div>
