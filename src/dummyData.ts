@@ -25,6 +25,7 @@ export const events: IEvents[] = [
       title: "McCormick Tribune Ice Rink",
       date: "2024-01-11",
       venue: "Millennium Park",
+      time: "8:10 PM",
       image:
         "https://cdn.choosechicago.com/uploads/2023/11/mpicerink-900x400.jpg",
     },
@@ -32,7 +33,7 @@ export const events: IEvents[] = [
       title: "Tampa Bay Chocolate Festival",
       date: "2024-02-19",
       venue: "Gulfview Square Mall",
-      time: "10:00 AM - 5:00 PM",
+      time: "10:00 AM",
       image:
         "https://thatssotampa.com/wp-content/uploads/2023/12/ChocFestNew.jpg",
     },
@@ -85,3 +86,43 @@ export const venueOwner: IVenueOwner = {
   name: "Matty Potts",
   email: "mpotts@iu.edu",
 }
+
+interface IAnnouncement {
+  date?: string;
+  announcement?: string;
+}
+interface IAnnouncements {
+  title: string;
+  announcements: IAnnouncement[];
+}
+
+export const announcements:IAnnouncements[] = [
+  {
+    title:events[0].title,
+    announcements:[{}]
+  },{
+    title:events[1].title,
+    announcements:[{}]
+  },{
+    title:events[2].title,
+    announcements:[{}]
+  },{
+    title:events[3].title,
+    announcements:[{}]
+  },{
+    title:events[4].title,
+    announcements:[{}]
+  },{
+    title:events[5].title,
+    announcements:[{}]
+  },{
+    title:events[6].title,
+    announcements:[{}]
+  },{
+    title:events[7].title,
+    announcements:[{}]
+  },{
+    title:events[8].title,
+    announcements:[{}]
+  }
+];

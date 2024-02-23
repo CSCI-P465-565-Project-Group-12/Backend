@@ -5,12 +5,13 @@ import HomePageLayoutCards from "../../components/UI/HomePageLayoutCards/HomePag
 import UpcomingEventsCarousel from "../../components/UpcomingEventsCarousel/UpcomingEventsCarousel";
 // import { events } from "../../dummyData";
 import "./HomPage.css";
-import { useSelector } from "react-redux";
 import { IEvent } from "../../IEventInterface";
+import { events } from "../../dummyData";
+import Announcement from "../../components/Announcement/Announcement";
 
 const HomePage = () => {
   const navigate = useNavigate();
-  const events = useSelector((state: any) => state.events.events);
+
   const upcomingEvents = events
     .filter(
       (event: IEvent) => new Date(event.date).getTime() < new Date().getTime()
@@ -22,9 +23,10 @@ const HomePage = () => {
     )
     .slice(0, 1);
 
-  const uniqueVenues = events
-    .filter((a: IEvent, b: IEvent) => events.indexOf(a) === b)
-    .map((event: IEvent) => event.venue);
+  const uniqueVenues = events.filter(
+    (event: IEvent, index: number, self: IEvent[]) =>
+      index === self.findIndex((e) => e.venue === event.venue)
+  );
 
   const stats: any = {
     noOfAttendees: 90,
@@ -47,9 +49,9 @@ const HomePage = () => {
           className="bi bi-plus-circle-fill"
           onClick={() => navigate("/create-event")}
         />
-        <i className="bi bi-pencil-square" />
-        <i className="bi bi-trash" />
+        <i className="bi bi-list-ul" onClick={() => navigate("/all-events")} />
       </HomePageLayoutCards>
+
       <HomePageLayoutCards width="20%" height="100%">
         <div
           className="stats-header"
@@ -75,6 +77,9 @@ const HomePage = () => {
       </HomePageLayoutCards>
       <HomePageLayoutCards width="70%" height="100%">
         <AllEvents events={events} />
+      </HomePageLayoutCards>
+      <HomePageLayoutCards width="100%" height="auto">
+        <Announcement />
       </HomePageLayoutCards>
     </div>
   );
