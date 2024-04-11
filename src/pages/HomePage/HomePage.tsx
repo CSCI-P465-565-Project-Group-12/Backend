@@ -8,10 +8,16 @@ import "./HomPage.css";
 import { IEvent } from "../../IEventInterface";
 import { events } from "../../dummyData";
 import Announcement from "../../components/Announcement/Announcement";
+import Chat from "../../components/Chat/Chat";
+import { useSelector } from "react-redux";
+// import Footer from "../../components/UI/Footer/Footer";
 
 const HomePage = () => {
   const navigate = useNavigate();
+  const venueOwner = useSelector((state: any) => state.venueOwner.venue_owner);
+  console.log(venueOwner);
 
+  const isLoggenIn = useSelector((state: any) => state.login.isLoggedIn);
   const upcomingEvents = events
     .filter(
       (event: IEvent) => new Date(event.date).getTime() < new Date().getTime()
@@ -36,52 +42,74 @@ const HomePage = () => {
     revenue: `${(events.length * 100).toLocaleString()}$`,
   };
   return (
-    <div className="home-page-container">
-      <HomePageLayoutCards width="50%" height="50%">
-        <UpcomingEventsCarousel events={upcomingEvents} />
-      </HomePageLayoutCards>
-      <HomePageLayoutCards width="30%" height="50%">
-        <RecentEventCard {...recentEvent[0]} />
-      </HomePageLayoutCards>
-      <HomePageLayoutCards width="10%" height="50%">
-        <i className="bi bi-person-badge-fill" />
-        <i
-          className="bi bi-plus-circle-fill"
-          onClick={() => navigate("/create-event")}
-        />
-        <i className="bi bi-list-ul" onClick={() => navigate("/all-events")} />
-      </HomePageLayoutCards>
+    <>
+      {isLoggenIn && (
+        <div className="welcome-header">
+          <h1>Welcome, {venueOwner.username}</h1>
+        </div>
+      )}
+      <div className="home-page-container">
+        <HomePageLayoutCards width="50%" height="50%">
+          <UpcomingEventsCarousel events={upcomingEvents} />
+        </HomePageLayoutCards>
+        <HomePageLayoutCards width="30%" height="50%">
+          <RecentEventCard {...recentEvent[0]} />
+        </HomePageLayoutCards>
+        <HomePageLayoutCards width="10%" height="50%">
+          <i
+            className="bi bi-person-badge-fill"
+            onClick={() => {
+              navigate("/profile");
+            }}
+          />
+          <i
+            className="bi bi-plus-circle-fill"
+            onClick={() => navigate("/create-event")}
+          />
+          <i
+            className="bi bi-list-ul"
+            onClick={() => navigate("/all-events")}
+          />
+        </HomePageLayoutCards>
 
-      <HomePageLayoutCards width="20%" height="100%">
-        <div
-          className="stats-header"
-          style={{
-            backgroundColor: "#161b33",
-            width: "100%",
-          }}
-        >
-          <h2 style={{ textAlign: "center" }}>Statistics</h2>
-        </div>
-        <div className="stats">
-          <h2>Attendees</h2>
-          <p>{stats.noOfAttendees}</p>
-          <h2>Events</h2>
-          <p>{stats.noOfEvents}</p>
-          <h2>Venues</h2>
-          <p>{stats.noOfVenues}</p>
-          <h2>Bookings</h2>
-          <p>{stats.noOfBookings}</p>
-          <h2>Revenue</h2>
-          <p>{stats.revenue}</p>
-        </div>
-      </HomePageLayoutCards>
-      <HomePageLayoutCards width="70%" height="100%">
-        <AllEvents events={events} />
-      </HomePageLayoutCards>
-      <HomePageLayoutCards width="100%" height="auto">
-        <Announcement />
-      </HomePageLayoutCards>
-    </div>
+        <HomePageLayoutCards width="20%" height="100%">
+          <div
+            className="stats-header"
+            style={{
+              backgroundColor: "#161b33",
+              width: "100%",
+            }}
+          >
+            <h2 style={{ textAlign: "center" }}>Statistics</h2>
+          </div>
+          <div className="stats">
+            <h2>Attendees</h2>
+            <p>{stats.noOfAttendees}</p>
+            <h2>Events</h2>
+            <p>{stats.noOfEvents}</p>
+            <h2>Venues</h2>
+            <p>{stats.noOfVenues}</p>
+            <h2>Bookings</h2>
+            <p>{stats.noOfBookings}</p>
+            <h2>Revenue</h2>
+            <p>{stats.revenue}</p>
+          </div>
+        </HomePageLayoutCards>
+        <HomePageLayoutCards width="70%" height="100%">
+          <AllEvents events={events} />
+        </HomePageLayoutCards>
+        <HomePageLayoutCards width="100%" height="auto">
+          <Announcement />
+        </HomePageLayoutCards>
+        <HomePageLayoutCards width="50%" height="500px">
+          <Chat
+            sender="IU Athletics"
+            event="IU Hoosiers vs Northwestern Wildcats"
+          />
+        </HomePageLayoutCards>
+      </div>
+      {/* <Footer /> */}
+    </>
   );
 };
 export default HomePage;
