@@ -1,3 +1,7 @@
+.welcome-header {
+  display: flex;
+  margin: 0.5rem 4rem;
+}
 .home-page-container {
   display: flex;
   height: 100vh;
