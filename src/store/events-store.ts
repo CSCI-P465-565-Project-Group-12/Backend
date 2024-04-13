@@ -1,6 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { IEvent, IEvents } from "../IEventInterface";
-import { events } from "../dummyData";
+import { IEvent, IEvents } from "../IEvent";
 
 
 const initialState: IEvents= {
@@ -13,7 +12,7 @@ export const eventsSlice = createSlice({
     reducers: {
         addEvent: (state, action: PayloadAction<IEvent>) => {
             state.events.push(action.payload);
-            events.push(action.payload);
+        
         },
     },
 });

@@ -1,8 +1,9 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import "./VenueOwnerProfilePage.css";
 import Footer from "../../components/UI/Footer/Footer";
 import { useEffect, useState } from "react";
 import useApi from "../../hooks/apiHook";
+import { venueOwnerActions } from "../../store/venue-owner-store";
 const VenueOwnerProfilePage: React.FC = () => {
   const { fetchProfile, updateProfile, createProfile } = useApi();
   const venueOwner: IVenueOwnerProfile = useSelector(
@@ -29,6 +30,7 @@ const VenueOwnerProfilePage: React.FC = () => {
     address: false,
     contact_number: false,
   });
+  const dispatch = useDispatch();
   useEffect(() => {
     const checkForProfile = async () => {
       const profile: any = await fetchProfile(
@@ -60,6 +62,7 @@ const VenueOwnerProfilePage: React.FC = () => {
           bio: profile.bio,
           address: profile.address,
         });
+        dispatch(venueOwnerActions.setVenueOwnerProfile(profile));
       }
     };
     checkForProfile();
@@ -90,6 +93,7 @@ const VenueOwnerProfilePage: React.FC = () => {
         bio: updatedProfile.bio,
         address: updatedProfile.address,
       });
+      dispatch(venueOwnerActions.setVenueOwnerProfile(updatedProfile));
     } else {
       alert("Somethhing went wrong while updating your profile");
     }

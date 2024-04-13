@@ -1,4 +1,4 @@
-import { IEvent } from "../../IEventInterface";
+import { IEvent } from "../../IEvent";
 import "./RecentEventCard.css";
 const RecentEventCard: React.FC<IEvent> = (props) => {
   return (
