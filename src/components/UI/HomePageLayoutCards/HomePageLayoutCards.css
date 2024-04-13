@@ -5,6 +5,8 @@
   align-items: center;
   background-color: #00b4d8;
   box-shadow: 0 0 10px 0 #000;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .home-page-layout-cards i {

@@ -6,6 +6,9 @@ import AllEventsPage from "./pages/AllEventsPage/AllEventsPage";
 import UpdateEventPage from "./pages/UpdateEventPage/UpdateEventPage";
 import AuthCallbackHandlerPage from "./pages/AuthCallbackHandlerPage/AuthCallbackHandlerPage";
 import VenueOwnerProfilePage from "./pages/VenueOwnerProfilePage/VenueOwnerProfilePage";
+import CreateVenuePage from "./pages/CreateVenuePage/CreateVenuePage";
+import AllVenuesPage from "./pages/AllVenuesPage/AllVenuesPage";
+import UpdateVenuePage from "./pages/UpdateVenuePage/UpdateVenuePage";
 
 function App() {
   return (
@@ -14,7 +17,10 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/all-events" element={<AllEventsPage />} />
+        <Route path="/all-venues" element={<AllVenuesPage />} />
+        <Route path="/create-venue" element={<CreateVenuePage />} />
         <Route path="/create-event" element={<CreateEventPage />} />
+        <Route path="/update-venue" element={<UpdateVenuePage />} />
         <Route path="/update-event" element={<UpdateEventPage />} />
         <Route
           path="/post-auth-callback"

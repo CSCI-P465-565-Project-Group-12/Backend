@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./UpcomingEventsCarousel.css";
-import { IEvent, IEvents } from "../../IEventInterface";
+import { IEvent, IEvents } from "../../IEvent";
 
 const UpcomingEventsCarousel: React.FC<IEvents> = (props) => {
   const [currentEvent, setCurrentEvent] = useState(0);

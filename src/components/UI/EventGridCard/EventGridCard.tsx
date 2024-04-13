@@ -1,4 +1,4 @@
-import { IEvent } from "../../../IEventInterface";
+import { IEvent } from "../../../IEvent";
 import "./EventGridCard.css";
 
 const EventGridCard: React.FC<IEvent> = (props) => {

@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import HomePageLayoutCards from "../../components/UI/HomePageLayoutCards/HomePageLayoutCards";
 import "./UpdateEventPage.css";
-import { IEvent } from "../../IEventInterface";
+import { IEvent } from "../../IEvent";
 import { useState } from "react";
 import { updateEventActions } from "../../store/update-event-store";
 import { useNavigate } from "react-router";
