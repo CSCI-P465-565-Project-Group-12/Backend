@@ -8,7 +8,7 @@ export interface IEvent {
     startTime: string;
     endTime: string;
     images: string[];
-    coverImage: string;
+    coverImg: string;
 }
 export interface IEvents {
     events: IEvent[];

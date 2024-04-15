@@ -19,13 +19,9 @@ const Table: React.FC<ITableProps> = (props) => {
       <table>
         <thead>
           <tr>
-            {props.columns
-              .filter((column: any) => {
-                return column !== "image";
-              })
-              .map((column: any, index: number) => (
-                <th key={index}>{column}</th>
-              ))}
+            {props.columns.map((column: any, index: number) => (
+              <th key={index}>{column}</th>
+            ))}
             <th>Actions</th>
           </tr>
         </thead>
@@ -33,14 +29,13 @@ const Table: React.FC<ITableProps> = (props) => {
           {props.data.map((event: any, index: number) => (
             <tr key={index}>
               {Object.keys(event)
-                .filter((key: any) => key !== "image")
-                .map((key: any, index: number) => (
-                  <td key={index}>
-                    {key === "date"
-                      ? new Date(event[key]).toDateString()
-                      : event[key]}
-                  </td>
-                ))}
+              .map((key: any, index: number) => (
+                <td key={index}>
+                  {key === "date"
+                    ? new Date(event[key]).toDateString()
+                    : event[key]}
+                </td>
+              ))}
               <td>
                 <i
                   className="bi bi-pencil-square"

@@ -99,7 +99,14 @@ const useApi = () => {
     navigate("/all-venues");
     return response.data;
   };
-
+  const getVenue = async (venueId: string) => {
+    const response = await axios.get(vabApi + "venue/" + venueId, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+    return response.data;
+  };
   const getAllVenues = async () => {
     const response = await axios.get(vabApi + "venues", {
       headers: {
@@ -108,8 +115,18 @@ const useApi = () => {
     });
     return response.data;
   };
+
   const createEvent = async (data: any) => {
-    const response = await axios.post(baseApi + "activity", data, {
+    const response = await axios.post(vabApi + "activity", data, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+    return response.data;
+  };
+
+  const getAllEvents = async () => {
+    const response = await axios.get(vabApi + "activities", {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
@@ -122,8 +139,10 @@ const useApi = () => {
     createProfile,
     fetchProfile,
     createVenue,
+    getVenue,
     getAllVenues,
     createEvent,
+    getAllEvents,
   };
 };
 

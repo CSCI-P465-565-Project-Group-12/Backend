@@ -22,7 +22,7 @@ const CreateEventPage = () => {
     startTime: "",
     endTime: "",
     images: [],
-    coverImage: "",
+    coverImg: "",
   });
   const { getAllVenues, createEvent } = useApi();
   const [venues, setVenues] = useState<IVenueWithId[]>([]);
@@ -34,6 +34,8 @@ const CreateEventPage = () => {
   const venuesOptions = venues.map((venue: any) => (
     <option value={venue.venueId}>{venue.name}</option>
   ));
+  console.log(event);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const submitHandler = (e: any) => {
@@ -44,13 +46,13 @@ const CreateEventPage = () => {
         name: "",
         venueId: "",
         ageRange: "",
-        cost: "",
+        cost: "32.00",
         capacity: 0,
         activityStatus: "",
         startTime: "",
         endTime: "",
         images: [],
-        coverImage: "",
+        coverImg: "",
       });
     });
   };
@@ -84,7 +86,7 @@ const CreateEventPage = () => {
                           // create a hash of the image using bcrypt
                           setEvent({
                             ...event,
-                            coverImage: reader.result as string,
+                            coverImg: reader.result as string,
                           });
                         };
                         reader.readAsDataURL(file);
@@ -137,9 +139,12 @@ const CreateEventPage = () => {
                     type="text"
                     id="cost"
                     value={event.cost}
-                    onChange={(e) =>
-                      setEvent({ ...event, cost: e.target.value })
-                    }
+                    onChange={(e) => {
+                      setEvent({
+                        ...event,
+                        cost: parseFloat(e.target.value).toFixed(2),
+                      });
+                    }}
                   />
                 </div>
                 <div className="form-group">
@@ -170,9 +175,11 @@ const CreateEventPage = () => {
                     type="datetime-local"
                     id="startTime"
                     value={event.startTime}
-                    onChange={(e) =>
-                      setEvent({ ...event, startTime: e.target.value })
-                    }
+                    onChange={(e) => {
+                      console.log(e.target.value);
+
+                      setEvent({ ...event, startTime: e.target.value });
+                    }}
                   />
                 </div>
                 <div className="form-group">
@@ -220,7 +227,7 @@ const CreateEventPage = () => {
 
               <div className="event-preview-content">
                 <div className="event-preview-cover">
-                  <img src={event.coverImage} alt="event" />
+                  <img src={event.coverImg} alt="event" />
                 </div>
                 <div className="event-preview-images">
                   {event.images.map((image, index) => (
