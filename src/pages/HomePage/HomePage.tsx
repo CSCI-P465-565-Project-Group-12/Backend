@@ -119,12 +119,6 @@ const HomePage = () => {
             {/* <HomePageLayoutCards width="100%" height="auto">
               <Announcement />
             </HomePageLayoutCards> */}
-            <HomePageLayoutCards width="50%" height="500px">
-              <Chat
-                sender="IU Athletics"
-                event="IU Hoosiers vs Northwestern Wildcats"
-              />
-            </HomePageLayoutCards>
           </div>
           {/* <Footer /> */}
         </>
