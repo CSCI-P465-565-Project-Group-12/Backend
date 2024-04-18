@@ -6,6 +6,7 @@ import { updateEventActions } from "../../../store/update-event-store";
 interface ITableProps {
   columns: string[];
   data: any[];
+  allEvents: any[];
 }
 
 const Table: React.FC<ITableProps> = (props) => {
@@ -28,8 +29,7 @@ const Table: React.FC<ITableProps> = (props) => {
         <tbody>
           {props.data.map((event: any, index: number) => (
             <tr key={index}>
-              {Object.keys(event)
-              .map((key: any, index: number) => (
+              {Object.keys(event).map((key: any, index: number) => (
                 <td key={index}>
                   {key === "date"
                     ? new Date(event[key]).toDateString()
@@ -38,9 +38,21 @@ const Table: React.FC<ITableProps> = (props) => {
               ))}
               <td>
                 <i
+                  className="bi bi-people-fill"
+                  onClick={() => {
+                    navigate("/event-participants", {
+                      state: { event: props.allEvents[index] },
+                    });
+                  }}
+                />
+                <i
                   className="bi bi-pencil-square"
                   onClick={() => {
-                    dispatch(updateEventActions.storeTemporaryEvent(event));
+                    dispatch(
+                      updateEventActions.updateEventDetails(
+                        props.allEvents[index]
+                      )
+                    );
                     navigateToUpdateEventPageHandler();
                   }}
                 />

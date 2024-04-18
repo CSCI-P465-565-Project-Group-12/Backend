@@ -5,14 +5,16 @@ import Table from "../../components/UI/Table/Table";
 import "./AllEventsPage.css";
 import { IEvent } from "../../IEvent";
 import useApi from "../../hooks/apiHook";
+import { useLocation } from "react-router";
 const AllEventsPage = () => {
   const [events, setEvents] = useState<IEvent[]>([]);
-  const { getAllEvents } = useApi();
-
+  const { getVenueActivities } = useApi();
+  const venueId = useLocation().state.venueId;
   useEffect(() => {
-    getAllEvents().then((res) => {
+    getVenueActivities(venueId).then((res) => {
       console.log(res);
       setEvents(res);
+      console.log("events", events);
     });
   }, []);
 
@@ -43,6 +45,7 @@ const AllEventsPage = () => {
             <Table
               columns={["Event Name", "Date", "Time"]}
               data={requiredColsEvents}
+              allEvents={events}
             />
           </>
         )}

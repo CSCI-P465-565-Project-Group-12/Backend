@@ -9,7 +9,7 @@ import persistReducer from "redux-persist/es/persistReducer";
 import venueOwnerSlice from "./venue-owner-store";
 
 const persistConfig = {
-    key: "root",
+    key: "venueOwner",
     storage
 };
 

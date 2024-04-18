@@ -23,6 +23,7 @@ const CreateEventPage = () => {
     endTime: "",
     images: [],
     coverImg: "",
+    description: "",
   });
   const { getAllVenues, createEvent } = useApi();
   const [venues, setVenues] = useState<IVenueWithId[]>([]);
@@ -53,6 +54,7 @@ const CreateEventPage = () => {
         endTime: "",
         images: [],
         coverImg: "",
+        description: "",
       });
     });
   };
@@ -103,6 +105,18 @@ const CreateEventPage = () => {
                     onChange={(e) =>
                       setEvent({ ...event, name: e.target.value })
                     }
+                  />
+                </div>
+                <div className="form-control">
+                  <label htmlFor="event-description">Venue Description</label>
+                  <textarea
+                    id="event-description"
+                    onChange={(e) => {
+                      setEvent({
+                        ...event,
+                        description: e.target.value,
+                      });
+                    }}
                   />
                 </div>
                 <div className="form-group">

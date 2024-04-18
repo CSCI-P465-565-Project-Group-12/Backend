@@ -9,6 +9,7 @@ import VenueOwnerProfilePage from "./pages/VenueOwnerProfilePage/VenueOwnerProfi
 import CreateVenuePage from "./pages/CreateVenuePage/CreateVenuePage";
 import AllVenuesPage from "./pages/AllVenuesPage/AllVenuesPage";
 import UpdateVenuePage from "./pages/UpdateVenuePage/UpdateVenuePage";
+import EventParticipantsPage from "./pages/EventParticipantsPage/EventParticipantsPage";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/create-event" element={<CreateEventPage />} />
         <Route path="/update-venue" element={<UpdateVenuePage />} />
         <Route path="/update-event" element={<UpdateEventPage />} />
+        <Route path="/event-participants" element={<EventParticipantsPage />} />
         <Route
           path="/post-auth-callback"
           element={<AuthCallbackHandlerPage />}

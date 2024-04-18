@@ -10,6 +10,15 @@ const useApi = () => {
   const vabApi = import.meta.env.VITE_BASE_VAB_API as string;
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const getUser = async (userId: string) => {
+    const response = await axios.get(baseApi + "user/" + userId, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+    return response.data;
+  };
   const validateVenueOwnerToken = async (token: string) => {
     await axios
       .get(baseApi + "currentuser", {
@@ -22,11 +31,12 @@ const useApi = () => {
 
         const username = res.data.jwtUserObj.username;
         const email = res.data.jwtUserObj.email;
+        const id = res.data.jwtUserObj.id;
         dispatch(loginActions.setLogin());
         dispatch(loadingActions.setLoading({ isLoading: false, message: "" }));
         dispatch(
           venueOwnerActions.setIntialVenueOwner({
-            venue_owner: { username, email },
+            venue_owner: { username, email, id },
           })
         );
         navigate("/");
@@ -83,8 +93,6 @@ const useApi = () => {
   };
 
   const createVenue = async (data: any) => {
-    // console.log(data);
-
     const response = await axios.post(vabApi + "venue", data, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -115,7 +123,23 @@ const useApi = () => {
     });
     return response.data;
   };
+  const getVenueOfVenueOwner = async (venueOwnerId: string) => {
+    const response = await axios.get(vabApi + "venue/" + venueOwnerId, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+    return response.data;
+  };
 
+  const getVenueActivities = async (venueId: string) => {
+    const response = await axios.get(vabApi + "activities/" + venueId, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+    return response.data;
+  };
   const createEvent = async (data: any) => {
     const response = await axios.post(vabApi + "activity", data, {
       headers: {
@@ -124,7 +148,18 @@ const useApi = () => {
     });
     return response.data;
   };
+  const getActivityReservations = async (activityId: string) => {
+    const response = await axios.get(
+      vabApi + "reservations/activity/" + activityId,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
 
+    return response.data;
+  };
   const getAllEvents = async () => {
     const response = await axios.get(vabApi + "activities", {
       headers: {
@@ -141,8 +176,12 @@ const useApi = () => {
     createVenue,
     getVenue,
     getAllVenues,
+    getVenueOfVenueOwner,
+    getVenueActivities,
     createEvent,
     getAllEvents,
+    getActivityReservations,
+    getUser,
   };
 };
 

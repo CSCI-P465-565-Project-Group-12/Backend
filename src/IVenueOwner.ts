@@ -1,4 +1,5 @@
 interface IVenueOwner{
+    id?:string;
     email:string;
     username:string;
 }

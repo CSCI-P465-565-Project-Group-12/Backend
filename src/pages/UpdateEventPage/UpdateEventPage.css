@@ -54,6 +54,7 @@
   border-radius: 5px;
   outline: none;
   background-color: #161b33;
+  color: #caf0f8;
 }
 .form-control textarea {
   width: 100%;
@@ -63,6 +64,7 @@
   border-radius: 5px;
   outline: none;
   background-color: #161b33;
+  color: #caf0f8;
 }
 .form-control select {
   width: 100%;
@@ -70,6 +72,8 @@
   font-size: 1.5rem;
   border: 1px solid #000;
   border-radius: 5px;
+  color: #caf0f8;
+
   outline: none;
 }
 .form-control button {

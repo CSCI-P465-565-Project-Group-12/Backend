@@ -70,10 +70,10 @@ const HomePage = () => {
                 className="bi bi-plus-circle-fill"
                 onClick={() => navigate("/create-event")}
               />
-              <i
+              {/* <i
                 className="bi bi-list-ul"
                 onClick={() => navigate("/all-events")}
-              />
+              /> */}
 
               <i
                 className="bi bi-building"
@@ -84,6 +84,7 @@ const HomePage = () => {
                 onClick={() => {
                   dispatch(loginActions.logout());
                   dispatch(venueOwnerActions.unSetVenueOwner());
+                  dispatch(venueOwnerActions.unSetVenueOwnerProfile());
 
                   window.location.href = "http://localhost:5173/";
                 }}

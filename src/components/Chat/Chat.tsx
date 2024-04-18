@@ -22,8 +22,8 @@ const firebaseConfig = {
   measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 };
 interface IChatProps {
-  sender: string;
-  event: string;
+  sender?: string;
+  event?: string;
 }
 
 interface IMessage {
@@ -35,6 +35,7 @@ interface IMessage {
 const Chat: React.FC<IChatProps> = ({ sender, event }) => {
   const [message, setMessage] = useState<string>("");
   const [messages, setMessages] = useState<IMessage[]>([]);
+  // console.log(sender, event);
 
   useEffect(() => {
     initializeApp(firebaseConfig);

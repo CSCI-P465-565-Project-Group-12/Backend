@@ -5,7 +5,7 @@ import "./AllVenuesPage.css";
 import useApi from "../../hooks/apiHook";
 
 interface INewVenueInterface extends IVenue {
-  venueId: string;
+  id: string;
 }
 
 const AllVenuesPage = () => {
@@ -15,6 +15,7 @@ const AllVenuesPage = () => {
     getAllVenues().then((res) => {
       console.log(res);
       setVenues(res);
+      console.log("venues", venues);
     });
   }, []);
   const requiredColsVenues = venues.map((venue) => {

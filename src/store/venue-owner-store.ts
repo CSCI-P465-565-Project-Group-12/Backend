@@ -30,8 +30,16 @@ const venueOwnerSlice=createSlice({
                 email:"",
                 username:""
             };
+        },
+        unSetVenueOwnerProfile(state:IVenueOwnerProfile){
+            state.first_name="",
+            state.last_name="",
+            state.contact_number="",
+            state.bio="",
+            state.address=""
         }
     }
+
 });
 export const venueOwnerActions=venueOwnerSlice.actions;
 export default venueOwnerSlice;

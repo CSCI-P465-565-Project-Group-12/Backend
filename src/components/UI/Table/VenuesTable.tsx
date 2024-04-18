@@ -11,6 +11,9 @@ interface ITableProps {
 const VenuesTable: React.FC<ITableProps> = (props) => {
   const navigate = useNavigate();
   //   const dispatch = useDispatch();
+  const mappedIds = props.data.map((venue: any) => venue.id);
+  console.log("mappedIds", mappedIds);
+
   const navigateToUpdateVenuePageHandler = (name: string) => {
     let clickedVenue = props.data.find((venue: any) => venue.name === name);
 
@@ -34,6 +37,14 @@ const VenuesTable: React.FC<ITableProps> = (props) => {
                 <td key={index}>{event[key]}</td>
               ))}
               <td>
+                <i
+                  className="bi bi-list-ul"
+                  onClick={() =>
+                    navigate("/all-events", {
+                      state: { venueId: mappedIds[index] },
+                    })
+                  }
+                />
                 <i
                   className="bi bi-pencil-square"
                   onClick={() => {
