@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import HomePageLayoutCards from "../../components/UI/HomePageLayoutCards/HomePageLayoutCards";
 import Table from "../../components/UI/Table/Table";
-// import { events } from "../../dummyData";
 import "./AllEventsPage.css";
 import { IEvent } from "../../IEvent";
 import useApi from "../../hooks/apiHook";

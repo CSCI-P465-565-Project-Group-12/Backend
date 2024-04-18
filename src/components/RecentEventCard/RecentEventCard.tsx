@@ -8,11 +8,11 @@ const RecentEventCard: React.FC<IEvent> = (props) => {
       </div>
       <div className="recent-event-card">
         <div className="recent-event-card__image">
-          <img src={props.image} alt={props.title} />
+          <img src={props.coverImg} alt={props.name} />
         </div>
         <div className="recent-event-card__info">
-          <h2>{props.title}</h2>
-          <p>{props.date}</p>
+          <h2>{props.name}</h2>
+          <p>{props.startTime.toString()}</p>
         </div>
       </div>
     </div>

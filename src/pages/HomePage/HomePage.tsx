@@ -1,13 +1,12 @@
 import { useNavigate } from "react-router";
-import AllEvents from "../../components/AllEvents/AllEvents";
-import RecentEventCard from "../../components/RecentEventCard/RecentEventCard";
+// import AllEvents from "../../components/AllEvents/AllEvents";
+// import RecentEventCard from "../../components/RecentEventCard/RecentEventCard";
 import HomePageLayoutCards from "../../components/UI/HomePageLayoutCards/HomePageLayoutCards";
-import UpcomingEventsCarousel from "../../components/UpcomingEventsCarousel/UpcomingEventsCarousel";
+// import UpcomingEventsCarousel from "../../components/UpcomingEventsCarousel/UpcomingEventsCarousel";
 // import { events } from "../../dummyData";
 import "./HomPage.css";
-import { IEvent } from "../../IEvent";
-import { events } from "../../dummyData";
-import Announcement from "../../components/Announcement/Announcement";
+// import { IEvent } from "../../IEvent";
+// import Announcement from "../../components/Announcement/Announcement";
 import Chat from "../../components/Chat/Chat";
 import { useDispatch, useSelector } from "react-redux";
 import { loginActions } from "../../store/login-store";
@@ -20,25 +19,25 @@ const HomePage = () => {
   console.log(venueOwner);
   const isLoggenIn = useSelector((state: any) => state.login.isLoggedIn);
 
-  const upcomingEvents = events
-    .filter((event) => new Date(event.date).getTime() < new Date().getTime())
-    .slice(0, 2);
-  const recentEvent = events
-    .filter((event) => new Date(event.date).getTime() > new Date().getTime())
-    .slice(0, 1);
+  // const upcomingEvents = events
+  //   .filter((event) => new Date(event.date).getTime() < new Date().getTime())
+  //   .slice(0, 2);
+  // const recentEvent = events
+  //   .filter((event) => new Date(event.date).getTime() > new Date().getTime())
+  //   .slice(0, 1);
 
-  const uniqueVenues = events.filter(
-    (event, index: number, self) =>
-      index === self.findIndex((e) => e.venue === event.venue)
-  );
+  // const uniqueVenues = events.filter(
+  //   (event, index: number, self) =>
+  //     index === self.findIndex((e) => e.venue === event.venue)
+  // );
 
-  const stats: any = {
-    noOfAttendees: 90,
-    noOfEvents: events.length,
-    noOfVenues: uniqueVenues.length,
-    noOfBookings: 90,
-    revenue: `${(events.length * 100).toLocaleString()}$`,
-  };
+  // const stats: any = {
+  //   noOfAttendees: 90,
+  //   noOfEvents: events.length,
+  //   noOfVenues: uniqueVenues.length,
+  //   noOfBookings: 90,
+  //   revenue: `${(events.length * 100).toLocaleString()}$`,
+  // };
   return (
     <>
       {isLoggenIn ? (
@@ -101,7 +100,7 @@ const HomePage = () => {
               >
                 <h2 style={{ textAlign: "center" }}>Statistics</h2>
               </div>
-              <div className="stats">
+              {/* <div className="stats">
                 <h2>Attendees</h2>
                 <p>{stats.noOfAttendees}</p>
                 <h2>Events</h2>
@@ -112,14 +111,14 @@ const HomePage = () => {
                 <p>{stats.noOfBookings}</p>
                 <h2>Revenue</h2>
                 <p>{stats.revenue}</p>
-              </div>
+              </div> */}
             </HomePageLayoutCards>
             {/* <HomePageLayoutCards width="70%" height="100%">
               <AllEvents events={events} />
             </HomePageLayoutCards> */}
-            <HomePageLayoutCards width="100%" height="auto">
+            {/* <HomePageLayoutCards width="100%" height="auto">
               <Announcement />
-            </HomePageLayoutCards>
+            </HomePageLayoutCards> */}
             <HomePageLayoutCards width="50%" height="500px">
               <Chat
                 sender="IU Athletics"

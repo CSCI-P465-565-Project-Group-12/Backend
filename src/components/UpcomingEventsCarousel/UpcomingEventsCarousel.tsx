@@ -12,8 +12,8 @@ const UpcomingEventsCarousel: React.FC<IEvents> = (props) => {
           return index === currentEvent;
         })
         .map((event: IEvent) => (
-          <div key={event.title} className="carousel-inner">
-            <img src={event.image} alt={event.title} />
+          <div key={event.name} className="carousel-inner">
+            <img src={event.coverImg} alt={event.name} />
             <div className="carousel-text">
               <div
                 style={{
@@ -25,18 +25,16 @@ const UpcomingEventsCarousel: React.FC<IEvents> = (props) => {
                   fontWeight: "bold",
                 }}
               >
-                <p>
-                  {event.date} at {event.venue}
-                </p>
+                <p>{event.startTime}</p>
               </div>
-              <h1>{event.title}</h1>
+              <h1>{event.name}</h1>
             </div>
           </div>
         ))}
       <div className="navigation-btns">
         {props.events.map((event: IEvent, index: number) => (
           <span
-            key={event.title}
+            key={event.name}
             className="carousel-btn"
             onClick={() => setCurrentEvent(index)}
           >

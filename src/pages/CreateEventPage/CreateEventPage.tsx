@@ -3,7 +3,7 @@ import "./CreateEventPage.css";
 import HomePageLayoutCards from "../../components/UI/HomePageLayoutCards/HomePageLayoutCards";
 import { useEffect, useState } from "react";
 import { IEvent } from "../../IEvent";
-import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
 import Footer from "../../components/UI/Footer/Footer";
 import useApi from "../../hooks/apiHook";
 
@@ -38,7 +38,7 @@ const CreateEventPage = () => {
   console.log(event);
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const submitHandler = (e: any) => {
     e.preventDefault();
     createEvent(event).then((res) => {

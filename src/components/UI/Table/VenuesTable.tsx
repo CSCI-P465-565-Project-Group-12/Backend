@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router";
 import "./Table.css";
-import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
 
 interface ITableProps {
   columns: string[];
