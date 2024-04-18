@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { IEvent } from "../IEvent";
-import { events } from "../dummyData";
+// import { events } from "../dummyData";
 
 const initialState: IEvent = {
     name: "",
@@ -42,10 +42,10 @@ export const updateEventSlice=createSlice({
             state.images=action.payload.images;
             state.coverImg=action.payload.coverImg;
         },
-        deleteEvent:(_,action:PayloadAction<string>)=>{
-            const index=events.findIndex((event)=>event.title===action.payload);
-            events.splice(index,1);
-        }
+        // deleteEvent:(_,action:PayloadAction<string>)=>{
+        //     const index=events.findIndex((event)=>event.title===action.payload);
+        //     events.splice(index,1);
+        // }
     }
 })
 export const updateEventActions=updateEventSlice.actions;

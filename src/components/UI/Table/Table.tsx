@@ -59,7 +59,7 @@ const Table: React.FC<ITableProps> = (props) => {
                 <i
                   className="bi bi-trash"
                   onClick={() => {
-                    dispatch(updateEventActions.deleteEvent(event.title));
+                    // dispatch(updateEventActions.deleteEvent(event.title));
                     alert("Event deleted successfully");
                     navigate("/");
                   }}
