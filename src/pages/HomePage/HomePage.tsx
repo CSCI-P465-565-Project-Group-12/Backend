@@ -7,7 +7,6 @@ import HomePageLayoutCards from "../../components/UI/HomePageLayoutCards/HomePag
 import "./HomPage.css";
 // import { IEvent } from "../../IEvent";
 // import Announcement from "../../components/Announcement/Announcement";
-import Chat from "../../components/Chat/Chat";
 import { useDispatch, useSelector } from "react-redux";
 import { loginActions } from "../../store/login-store";
 import { venueOwnerActions } from "../../store/venue-owner-store";
