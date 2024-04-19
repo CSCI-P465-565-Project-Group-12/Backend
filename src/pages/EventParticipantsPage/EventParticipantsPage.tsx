@@ -4,6 +4,7 @@ import useApi from "../../hooks/apiHook";
 import { useEffect, useState } from "react";
 import Chat from "../../components/Chat/Chat";
 import { useSelector } from "react-redux";
+import GroupChat from "../../components/Chat/GroupChat";
 
 interface IReservation {
   id: string;
@@ -114,6 +115,17 @@ const EventParticipantsPage = () => {
             );
           })
         )}
+      </div>
+      <div className="group-chat-container">
+        <GroupChat
+          sender={venueOwner.username as string}
+          event={activity.name as string}
+          members={
+            reservations.map((reservation) => {
+              return reservation.username;
+            }) as string[]
+          }
+        />
       </div>
     </div>
   );

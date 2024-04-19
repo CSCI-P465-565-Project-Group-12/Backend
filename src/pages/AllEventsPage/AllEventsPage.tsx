@@ -4,7 +4,7 @@ import Table from "../../components/UI/Table/Table";
 import "./AllEventsPage.css";
 import { IEvent } from "../../IEvent";
 import useApi from "../../hooks/apiHook";
-import { useLocation } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import { loadingActions } from "../../store/loading-store";
 import LoadingModal from "../../components/UI/Modal/LoadingModal";
@@ -13,6 +13,7 @@ const AllEventsPage = () => {
   const { getVenueActivities } = useApi();
   const venueId = useLocation().state.venueId;
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   useEffect(() => {
     dispatch(loadingActions.setLoading({ isLoading: true, message: "" }));
     getVenueActivities(venueId).then((res) => {
@@ -38,6 +39,14 @@ const AllEventsPage = () => {
 
   return (
     <>
+      <div
+        className="back-btn"
+        onClick={() => {
+          navigate(-1);
+        }}
+      >
+        <i className="bi bi-arrow-left-circle-fill" />
+      </div>
       <div className="all-events-page-container">
         <HomePageLayoutCards width="90%" height="100%">
           {events.length === 0 ? (

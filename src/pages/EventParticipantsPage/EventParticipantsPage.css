@@ -47,3 +47,17 @@
   width: 600px;
   height: 40px;
 }
+.group-chat-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 50px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 20px;
+  width: 720px;
+  height: 500px;
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
