@@ -12,18 +12,19 @@ interface IReservation {
   reservationDate: string;
   reservationTime: string;
   reservationStatus: string;
-  user?: {
-    id: string;
-    username: string;
-    email: string;
-  };
+  username: string;
+  email: string;
 }
 const EventParticipantsPage = () => {
   const [reservations, setReservations] = useState<IReservation[]>([]);
-  const [openChat, setOpenChat] = useState(false);
-  const { getActivityReservations, getUser } = useApi();
+  const [openChat, setOpenChat] = useState({
+    open: false,
+    userId: "",
+  });
+  const { getActivityReservations } = useApi();
   const activityId = useLocation().state.event.id;
   const activity = useLocation().state.event;
+
   const venueOwner = useSelector((state: any) => state.venueOwner.venue_owner);
   // console.log(venueOwner);
 
@@ -34,19 +35,19 @@ const EventParticipantsPage = () => {
       setReservations(res);
     });
   }, []);
-  useEffect(() => {
-    reservations.forEach((reservation) => {
-      getUser(reservation.userId).then((res) => {
-        reservation.user = {
-          id: res.id,
-          username: res.username,
-          email: res.email,
-        };
-        setReservations([...reservations]);
-        console.log(reservations);
-      });
-    });
-  }, [reservations.length > 0]);
+  // useEffect(() => {
+  //   reservations.forEach((reservation) => {
+  //     getUser(reservation.userId).then((res) => {
+  //       reservation.user = {
+  //         id: res.id,
+  //         username: res.username,
+  //         email: res.email,
+  //       };
+  //       setReservations([...reservations]);
+  //       console.log(reservations);
+  //     });
+  //   });
+  // }, [reservations.length > 0]);
 
   return (
     <div className="event-participants-page-container">
@@ -74,34 +75,36 @@ const EventParticipantsPage = () => {
           reservations.map((reservation) => {
             return (
               <>
-                <div className="participant-box">
-                  <h2>{reservation.user?.username}</h2>
-                  <h2>{reservation.user?.email}</h2>
+                <div className="participant-box" key={reservation.id}>
+                  <h2>{reservation.username}</h2>
+                  <h2>{reservation.email}</h2>
                   <i
                     className="bi bi-chat-left-text"
                     onClick={() => {
-                      console.log(
-                        `${activity.name}-${reservation.user?.username}`
-                      );
+                      console.log(`${activity.name}-${reservation.username}`);
 
-                      setOpenChat(true);
+                      setOpenChat({
+                        open: true,
+                        userId: reservation.userId,
+                      });
                     }}
                   />
                 </div>
-                {openChat && reservation.user?.username && (
+                {openChat.open && openChat.userId === reservation.userId && (
                   <>
                     <Chat
-                      key={reservation.user?.id}
+                      key={reservation.userId}
                       sender={venueOwner.username as string}
-                      event={
-                        `${activity.name}-${reservation.user?.id}` as string
-                      }
+                      event={`${activity.name}-${reservation.userId}` as string}
                     />
                     <button>
                       <i
                         className="bi bi-x-lg"
                         onClick={() => {
-                          setOpenChat(false);
+                          setOpenChat({
+                            open: false,
+                            userId: "",
+                          });
                         }}
                       />
                     </button>

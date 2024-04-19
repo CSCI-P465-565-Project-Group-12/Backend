@@ -5,17 +5,22 @@ import "./AllEventsPage.css";
 import { IEvent } from "../../IEvent";
 import useApi from "../../hooks/apiHook";
 import { useLocation } from "react-router";
+import { useDispatch } from "react-redux";
+import { loadingActions } from "../../store/loading-store";
+import LoadingModal from "../../components/UI/Modal/LoadingModal";
 const AllEventsPage = () => {
   const [events, setEvents] = useState<IEvent[]>([]);
   const { getVenueActivities } = useApi();
   const venueId = useLocation().state.venueId;
+  const dispatch = useDispatch();
   useEffect(() => {
+    dispatch(loadingActions.setLoading({ isLoading: true, message: "" }));
     getVenueActivities(venueId).then((res) => {
-      console.log(res);
+      dispatch(loadingActions.setLoading({ isLoading: false, message: "" }));
       setEvents(res);
-      console.log("events", events);
     });
   }, []);
+  console.log("events", events);
 
   const requiredColsEvents = events.map((event) => {
     return {
@@ -32,24 +37,27 @@ const AllEventsPage = () => {
   console.log("requiredColsEvents", requiredColsEvents);
 
   return (
-    <div className="all-events-page-container">
-      <HomePageLayoutCards width="90%" height="100%">
-        {events.length === 0 ? (
-          <h1>No Events</h1>
-        ) : (
-          <>
-            <div className="all-events-header">
-              <h1>All Events</h1>
-            </div>
-            <Table
-              columns={["Event Name", "Date", "Time"]}
-              data={requiredColsEvents}
-              allEvents={events}
-            />
-          </>
-        )}
-      </HomePageLayoutCards>
-    </div>
+    <>
+      <div className="all-events-page-container">
+        <HomePageLayoutCards width="90%" height="100%">
+          {events.length === 0 ? (
+            <h1>No Events</h1>
+          ) : (
+            <>
+              <div className="all-events-header">
+                <h1>All Events</h1>
+              </div>
+              <Table
+                columns={["Event Name", "Date", "Time"]}
+                data={requiredColsEvents}
+                allEvents={events}
+              />
+            </>
+          )}
+        </HomePageLayoutCards>
+      </div>
+      <LoadingModal message="Loading Events.." />
+    </>
   );
 };
 export default AllEventsPage;

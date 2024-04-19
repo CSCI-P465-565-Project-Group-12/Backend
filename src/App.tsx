@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router";
+import { Route, Routes, useNavigate } from "react-router";
 import HomePage from "./pages/HomePage/HomePage";
 import "./App.css";
 import CreateEventPage from "./pages/CreateEventPage/CreateEventPage";
@@ -12,9 +12,20 @@ import UpdateVenuePage from "./pages/UpdateVenuePage/UpdateVenuePage";
 import EventParticipantsPage from "./pages/EventParticipantsPage/EventParticipantsPage";
 
 function App() {
+  const navigate = useNavigate();
   return (
     <>
-      <h1 id="logo">BashBoss</h1>
+      <h1
+        id="logo"
+        style={{
+          cursor: "pointer",
+        }}
+        onClick={() => {
+          navigate("/");
+        }}
+      >
+        BashBoss
+      </h1>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/all-events" element={<AllEventsPage />} />

@@ -46,6 +46,8 @@ const Table: React.FC<ITableProps> = (props) => {
                       <i
                         className="bi bi-people-fill"
                         onClick={() => {
+                          console.log("event", props.allEvents[index]);
+
                           navigate("/event-participants", {
                             state: { event: props.allEvents[index] },
                           });
