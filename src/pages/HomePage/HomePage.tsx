@@ -84,7 +84,8 @@ const HomePage = () => {
                   dispatch(venueOwnerActions.unSetVenueOwner());
                   dispatch(venueOwnerActions.unSetVenueOwnerProfile());
 
-                  window.location.href = "http://localhost:5173/";
+                  window.location.href = import.meta.env
+                    .VITE_MAIN_CLIENT as string;
                 }}
               />
             </HomePageLayoutCards>
