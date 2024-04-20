@@ -146,6 +146,13 @@ const useApi = () => {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     });
+    if (response.status === 500) {
+      alert("An error occurred while creating the event.");
+      dispatch(loadingActions.setLoading({ isLoading: false, message: "" }));
+    }
+    alert("Event Created Successfully");
+    dispatch(loadingActions.setLoading({ isLoading: false, message: "" }));
+    navigate("/all-venues");
     return response.data;
   };
   const getActivityReservations = async (activityId: string) => {

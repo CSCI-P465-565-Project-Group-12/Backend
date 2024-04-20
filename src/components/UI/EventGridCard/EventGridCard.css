@@ -1,7 +1,7 @@
 .event-grid-card {
   display: flex;
   width: 250px;
-  max-height: 450px;
+  max-height: 750px;
   flex-direction: column;
   justify-content: center;
   align-items: center;

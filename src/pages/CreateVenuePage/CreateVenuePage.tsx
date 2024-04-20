@@ -11,14 +11,14 @@ const CreateVenuePage = () => {
   const { createVenue } = useApi();
   const venueOwner = useSelector((state: any) => state.venueOwner);
   console.log(venueOwner);
-
+  const venueStatusOptions = ["open", "close"];
   const [venue, setVenue] = useState<IVenue>({
     name: "",
     state: "",
     city: "",
     street: "",
     zipcode: "",
-    venueStatus: "",
+    venueStatus: venueStatusOptions[0],
     details: {
       description: "",
       price: "",
@@ -35,6 +35,24 @@ const CreateVenuePage = () => {
 
   const submitHandler = (e: any) => {
     e.preventDefault();
+    // console.log(venue);
+
+    if (
+      venue.images.length === 0 ||
+      venue.name === "" ||
+      venue.state === "" ||
+      venue.city === "" ||
+      venue.street === "" ||
+      venue.zipcode === "" ||
+      venue.venueStatus === "" ||
+      venue.venueType === "" ||
+      venue.details.description === "" ||
+      venue.details.price === "" ||
+      venue.details.venueNotes === ""
+    ) {
+      alert("Please fill all the fields");
+      return;
+    }
     dispatch(loadingActions.setLoading({ isLoading: true, message: "" }));
     createVenue({
       name: venue.name,
@@ -48,7 +66,7 @@ const CreateVenuePage = () => {
       venueStatus: venue.venueStatus,
     });
   };
-  const venueStatusOptions = ["open", "close"];
+
   return (
     <>
       <h1

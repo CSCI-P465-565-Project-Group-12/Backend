@@ -50,7 +50,16 @@ const AllEventsPage = () => {
       <div className="all-events-page-container">
         <HomePageLayoutCards width="90%" height="100%">
           {events.length === 0 ? (
-            <h1>No Events</h1>
+            <>
+              <h1>No Events</h1>
+              <button
+                onClick={() => {
+                  navigate("/create-event");
+                }}
+              >
+                Create Events
+              </button>
+            </>
           ) : (
             <>
               <div className="all-events-header">

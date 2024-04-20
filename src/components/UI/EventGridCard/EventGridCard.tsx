@@ -11,7 +11,6 @@ const EventGridCard: React.FC<IEvent> = (props) => {
       <div className="event-grid-card-content">
         <h3 className="event-grid-card-title">{props.name}</h3>
         <p className="event-grid-card-date">{date}</p>
-        <button className="view-more-btn">View Details</button>
       </div>
     </div>
   );

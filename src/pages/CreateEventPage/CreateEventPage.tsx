@@ -3,9 +3,11 @@ import "./CreateEventPage.css";
 import HomePageLayoutCards from "../../components/UI/HomePageLayoutCards/HomePageLayoutCards";
 import { useEffect, useState } from "react";
 import { IEvent } from "../../IEvent";
-// import { useDispatch } from "react-redux";
 import Footer from "../../components/UI/Footer/Footer";
 import useApi from "../../hooks/apiHook";
+import { loadingActions } from "../../store/loading-store";
+import LoadingModal from "../../components/UI/Modal/LoadingModal";
+import { useDispatch } from "react-redux";
 
 interface IVenueWithId extends IVenue {
   id: string;
@@ -38,16 +40,33 @@ const CreateEventPage = () => {
   // console.log(event);
   const eventStatusOptions = ["open", "sold out", "cancelled"];
   const navigate = useNavigate();
-  // const dispatch = useDispatch();
+
+  const dispatch = useDispatch();
   const submitHandler = (e: any) => {
     e.preventDefault();
+    if (
+      event.activityStatus === "" ||
+      event.ageRange === "" ||
+      event.capacity === 0 ||
+      event.cost === "" ||
+      event.coverImg === "" ||
+      event.description === "" ||
+      event.endTime === "" ||
+      event.images.length === 0 ||
+      event.name === "" ||
+      event.startTime === ""
+    ) {
+      alert("Please fill all the fields");
+      return;
+    }
+    dispatch(loadingActions.setLoading({ isLoading: true, message: "" }));
     createEvent(event).then((res) => {
       console.log(res);
       setEvent({
         name: "",
         venueId: "",
         ageRange: "",
-        cost: "32.00",
+        cost: "",
         capacity: 0,
         activityStatus: "",
         startTime: "",
@@ -57,7 +76,6 @@ const CreateEventPage = () => {
         description: "",
       });
     });
-    navigate("/");
   };
   return (
     <>
@@ -273,6 +291,7 @@ const CreateEventPage = () => {
       ) : (
         <h1>Please add atleast one venue for adding an event.</h1>
       )}
+      <LoadingModal message="Creating Event" />
       <Footer />
     </>
   );
