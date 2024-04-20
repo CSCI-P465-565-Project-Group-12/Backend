@@ -39,7 +39,9 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
 }
-
+::-webkit-scrollbar {
+  background-color: transparent;
+}
 h1 {
   font-size: 3.2em;
   line-height: 1.1;

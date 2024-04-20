@@ -48,6 +48,7 @@ const CreateVenuePage = () => {
       venueStatus: venue.venueStatus,
     });
   };
+  const venueStatusOptions = ["open", "close"];
   return (
     <>
       <h1
@@ -122,13 +123,16 @@ const CreateVenuePage = () => {
               </div>
               <div className="form-control">
                 <label htmlFor="venue-status">Venue Status</label>
-                <input
-                  type="text"
+                <select
                   id="venue-status"
                   onChange={(e) => {
                     setVenue({ ...venue, venueStatus: e.target.value });
                   }}
-                />
+                >
+                  {venueStatusOptions.map((option) => (
+                    <option value={option}>{option}</option>
+                  ))}
+                </select>
               </div>
               <div className="form-control">
                 <label htmlFor="venue-type">Venue Type</label>

@@ -7,6 +7,7 @@
   align-items: center;
   justify-content: center;
   gap: 1rem;
+  color: #caf0f8;
 }
 
 .back-btn {
@@ -72,6 +73,7 @@
   border: 1px solid #000;
   border-radius: 5px;
   outline: none;
+  background-color: #161b33;
 }
 .form-group button {
   width: 100%;

@@ -4,6 +4,7 @@ import Footer from "../../components/UI/Footer/Footer";
 import { useEffect, useState } from "react";
 import useApi from "../../hooks/apiHook";
 import { venueOwnerActions } from "../../store/venue-owner-store";
+import { useNavigate } from "react-router";
 const VenueOwnerProfilePage: React.FC = () => {
   const { fetchProfile, updateProfile, createProfile } = useApi();
   const venueOwner: IVenueOwnerProfile = useSelector(
@@ -31,6 +32,7 @@ const VenueOwnerProfilePage: React.FC = () => {
     contact_number: false,
   });
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   useEffect(() => {
     const checkForProfile = async () => {
       const profile: any = await fetchProfile(
@@ -120,6 +122,14 @@ const VenueOwnerProfilePage: React.FC = () => {
   };
   return (
     <>
+      <div
+        className="back-btn"
+        onClick={() => {
+          navigate(-1);
+        }}
+      >
+        <i className="bi bi-arrow-left-circle-fill" />
+      </div>
       <div className="venue-owner-profile-page">
         <div className="profile-pic">
           <input

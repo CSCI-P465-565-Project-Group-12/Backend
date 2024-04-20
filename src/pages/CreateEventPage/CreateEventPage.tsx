@@ -35,8 +35,8 @@ const CreateEventPage = () => {
   const venuesOptions = venues.map((venue: any) => (
     <option value={venue.venueId}>{venue.name}</option>
   ));
-  console.log(event);
-
+  // console.log(event);
+  const eventStatusOptions = ["open", "sold out", "cancelled"];
   const navigate = useNavigate();
   // const dispatch = useDispatch();
   const submitHandler = (e: any) => {
@@ -57,6 +57,7 @@ const CreateEventPage = () => {
         description: "",
       });
     });
+    navigate("/");
   };
   return (
     <>
@@ -174,14 +175,18 @@ const CreateEventPage = () => {
                 </div>
                 <div className="form-group">
                   <label htmlFor="activityStatus">Activity Status</label>
-                  <input
-                    type="text"
+                  <select
+                    name="activityStatus"
                     id="activityStatus"
-                    value={event.activityStatus}
                     onChange={(e) =>
                       setEvent({ ...event, activityStatus: e.target.value })
                     }
-                  />
+                  >
+                    <option value="">Select Status</option>
+                    {eventStatusOptions.map((status) => (
+                      <option value={status}>{status}</option>
+                    ))}
+                  </select>
                 </div>
                 <div className="form-group">
                   <label htmlFor="startTime">Start Time</label>
