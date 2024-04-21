@@ -1,7 +1,8 @@
 import { useNavigate } from "react-router";
 import "./Table.css";
-import { useDispatch } from "react-redux";
-import { updateEventActions } from "../../../store/update-event-store";
+// import { useDispatch } from "react-redux";
+// import { updateEventActions } from "../../../store/update-event-store";
+import useApi from "../../../hooks/apiHook";
 
 interface ITableProps {
   columns: string[];
@@ -10,11 +11,12 @@ interface ITableProps {
 }
 
 const Table: React.FC<ITableProps> = (props) => {
+  const { changeActivityStatus } = useApi();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const navigateToUpdateEventPageHandler = () => {
-    navigate("/update-event");
-  };
+  // const dispatch = useDispatch();
+  // const navigateToUpdateEventPageHandler = () => {
+  //   navigate("/update-event");
+  // };
   return (
     <div className="table-container">
       {props.data.length === 0 ? (
@@ -54,20 +56,13 @@ const Table: React.FC<ITableProps> = (props) => {
                         }}
                       />
                       <i
-                        className="bi bi-pencil-square"
-                        onClick={() => {
-                          dispatch(
-                            updateEventActions.updateEventDetails(
-                              props.allEvents[index]
-                            )
-                          );
-                          navigateToUpdateEventPageHandler();
-                        }}
-                      />
-                      <i
                         className="bi bi-trash"
                         onClick={() => {
                           // dispatch(updateEventActions.deleteEvent(event.title));
+                          changeActivityStatus(
+                            props.allEvents[index].id,
+                            "cancelled"
+                          );
                           alert("Event deleted successfully");
                           navigate("/");
                         }}

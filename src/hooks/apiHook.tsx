@@ -175,6 +175,40 @@ const useApi = () => {
     });
     return response.data;
   };
+  const changeActivityStatus = async (activityId: string, status: string) => {
+    const response = await axios.post(
+      vabApi + `changeactivitystatus/${activityId}`,
+      {
+        activityStatus: status,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+    if (response.status === 200) {
+      navigate("/");
+    }
+    return response.data;
+  };
+  const changeVenueStatus = async (venueId: string, status: string) => {
+    const response = await axios.post(
+      vabApi + `changeVenueStatus/${venueId}`,
+      {
+        status: status,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+    if (response.status === 200) {
+      navigate("/");
+    }
+    return response.data;
+  };
   return {
     validateVenueOwnerToken,
     updateProfile,
@@ -188,6 +222,8 @@ const useApi = () => {
     createEvent,
     getAllEvents,
     getActivityReservations,
+    changeActivityStatus,
+    changeVenueStatus,
     getUser,
   };
 };

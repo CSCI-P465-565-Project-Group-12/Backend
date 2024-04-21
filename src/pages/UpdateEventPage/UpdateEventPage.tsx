@@ -113,6 +113,7 @@ const UpdateEventPage = () => {
                     //     reader.readAsDataURL(file);
                     //   }
                     // }}
+                    disabled
                   />
                 </div>
                 <div className="form-group">
@@ -124,6 +125,7 @@ const UpdateEventPage = () => {
                     onChange={(e) =>
                       setNewEventData({ ...newEventData, name: e.target.value })
                     }
+                    disabled
                   />
                 </div>
                 <div className="form-control">
@@ -138,6 +140,7 @@ const UpdateEventPage = () => {
                         description: e.target.value,
                       });
                     }}
+                    disabled
                   />
                 </div>
                 <div className="form-group">
@@ -152,6 +155,7 @@ const UpdateEventPage = () => {
 
                       setNewEventData({ ...newEventData, venueId: venueId });
                     }}
+                    disabled
                   >
                     <option value="">Select Venue</option>
                     {venuesOptions}
@@ -169,6 +173,7 @@ const UpdateEventPage = () => {
                         ageRange: e.target.value,
                       })
                     }
+                    disabled
                   />
                 </div>
                 <div className="form-group">
@@ -183,6 +188,7 @@ const UpdateEventPage = () => {
                         cost: parseFloat(e.target.value).toFixed(2),
                       });
                     }}
+                    disabled
                   />
                 </div>
                 <div className="form-group">
@@ -197,6 +203,7 @@ const UpdateEventPage = () => {
                         capacity: Number(e.target.value),
                       })
                     }
+                    disabled
                   />
                 </div>
                 <div className="form-group">

@@ -23,7 +23,10 @@ const AllEventsPage = () => {
   }, []);
   console.log("events", events);
 
-  const requiredColsEvents = events.map((event) => {
+  const activeEvents = events.filter((event) => {
+    return event.activityStatus === "open";
+  });
+  const requiredColsEvents = activeEvents.map((event) => {
     return {
       name: event.name,
       date: event.startTime,
@@ -68,7 +71,7 @@ const AllEventsPage = () => {
               <Table
                 columns={["Event Name", "Date", "Time"]}
                 data={requiredColsEvents}
-                allEvents={events}
+                allEvents={activeEvents}
               />
             </>
           )}
