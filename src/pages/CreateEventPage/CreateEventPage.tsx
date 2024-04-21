@@ -32,6 +32,7 @@ const CreateEventPage = () => {
   const { getAllVenues, createEvent } = useApi();
   const [venues, setVenues] = useState<IVenueWithId[]>([]);
   const [images, setImages] = useState<FileObj[]>([]);
+  const [coverImg, setCoverImg] = useState<FileObj[]>([]);
   useEffect(() => {
     getAllVenues().then((res) => {
       setVenues(res);
@@ -54,6 +55,16 @@ const CreateEventPage = () => {
   )
   };
 
+  const handleCoverImageUpload = (e: any) => {
+    const files = [...e.target.files].map(file => {
+      return {
+          file,
+      }
+    })
+    setCoverImg(
+      [...coverImg, ...files]
+    )
+  }
   const dispatch = useDispatch();
   const submitHandler = async(e: any) => {
     e.preventDefault();
@@ -62,7 +73,7 @@ const CreateEventPage = () => {
       event.ageRange === "" ||
       event.capacity === 0 ||
       event.cost === "" ||
-      event.coverImg === "" ||
+      coverImg[0].file.name === "" ||
       event.description === "" ||
       event.endTime === "" ||
       images.length === 0 ||
@@ -75,9 +86,11 @@ const CreateEventPage = () => {
     dispatch(loadingActions.setLoading({ isLoading: true, message: "" }));
     const id = uuidv4();
     const imageUrls = await uploadFilesToStorage(id, images);
+    const coverImgUrl = await uploadFilesToStorage(id, coverImg);
     createEvent({
       ...event,
-      images: imageUrls
+      images: imageUrls,
+      coverImg: (coverImgUrl && coverImgUrl.length>0 ? coverImgUrl[0] : ''),
     }).then((res) => {
       console.log(res);
       setEvent({
@@ -117,20 +130,21 @@ const CreateEventPage = () => {
                   <input
                     type="file"
                     id="coverImage"
-                    onChange={(e) => {
-                      const file = e.target.files?.[0];
-                      if (file) {
-                        const reader = new FileReader();
-                        reader.onload = () => {
-                          // create a hash of the image using bcrypt
-                          setEvent({
-                            ...event,
-                            coverImg: reader.result as string,
-                          });
-                        };
-                        reader.readAsDataURL(file);
-                      }
-                    }}
+                    onChange={handleCoverImageUpload}
+                    // {(e) => {
+                    //   const file = e.target.files?.[0];
+                    //   if (file) {
+                    //     const reader = new FileReader();
+                    //     reader.onload = () => {
+                    //       // create a hash of the image using bcrypt
+                    //       setEvent({
+                    //         ...event,
+                    //         coverImg: reader.result as string,
+                    //       });
+                    //     };
+                    //     reader.readAsDataURL(file);
+                    //   }
+                    // }}
                   />
                 </div>
                 <div className="form-group">
