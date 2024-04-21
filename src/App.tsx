@@ -1,5 +1,5 @@
 import { Route, Routes, useNavigate } from "react-router";
-import HomePage from "./pages/HomePage/HomePage.1";
+import HomePage from "./pages/HomePage/HomePage";
 import "./App.css";
 import CreateEventPage from "./pages/CreateEventPage/CreateEventPage";
 import AllEventsPage from "./pages/AllEventsPage/AllEventsPage";
