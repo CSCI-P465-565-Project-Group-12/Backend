@@ -7,6 +7,8 @@ import LoadingModal from "../../components/UI/Modal/LoadingModal";
 import Footer from "../../components/UI/Footer/Footer";
 import useApi from "../../hooks/apiHook";
 import { loadingActions } from "../../store/loading-store";
+import { FileObj, uploadFilesToStorage } from "../../helpers/file-service";
+import { v4 as uuidv4 } from "uuid";
 
 const UpdateVenuePage = () => {
   const { createVenue } = useApi();
@@ -33,12 +35,25 @@ const UpdateVenuePage = () => {
     Reservations: [],
     activities: [],
   });
+  const [images, setImages] = useState<FileObj[]>([]);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const submitHandler = (e: any) => {
+  const handleImageUpload = (e: any) => {
+    const files = [...e.target.files].map(file => {
+      return {
+          file,
+      }
+  })
+  setImages(
+      [...images, ...files]
+  )
+  };
+
+  const submitHandler = async(e: any) => {
     e.preventDefault();
     dispatch(loadingActions.setLoading({ isLoading: true, message: "" }));
+    const imageUrls = await uploadFilesToStorage(uuidv4(), images);
     createVenue({
       name: venue.name,
       state: venue.state,
@@ -47,7 +62,7 @@ const UpdateVenuePage = () => {
       zipcode: venue.zipcode,
       details: JSON.stringify(venue.details),
       venueType: venue.venueType,
-      images: venue.images,
+      images: [...venue.images,...(imageUrls || [])],
       venueStatus: venue.venueStatus,
     }).then((res) => {
       console.log(res);
@@ -215,21 +230,22 @@ const UpdateVenuePage = () => {
                   <input
                     type="file"
                     id="venue-images"
-                    onChange={(e) => {
-                      const file = e.target.files?.[0];
-                      if (file) {
-                        const reader = new FileReader();
-                        reader.onload = () => {
-                          // create a hash of the image using bcrypt
+                    onChange={handleImageUpload}
+                    // {(e) => {
+                    //   const file = e.target.files?.[0];
+                    //   if (file) {
+                    //     const reader = new FileReader();
+                    //     reader.onload = () => {
+                    //       // create a hash of the image using bcrypt
 
-                          setVenue({
-                            ...venue,
-                            images: [...venue.images, reader.result as string],
-                          });
-                        };
-                        reader.readAsDataURL(file);
-                      }
-                    }}
+                    //       setVenue({
+                    //         ...venue,
+                    //         images: [...venue.images, reader.result as string],
+                    //       });
+                    //     };
+                    //     reader.readAsDataURL(file);
+                    //   }
+                    // }}
                   />
                 </div>
                 <button

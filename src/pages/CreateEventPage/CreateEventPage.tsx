@@ -8,6 +8,8 @@ import useApi from "../../hooks/apiHook";
 import { loadingActions } from "../../store/loading-store";
 import LoadingModal from "../../components/UI/Modal/LoadingModal";
 import { useDispatch } from "react-redux";
+import { FileObj, uploadFilesToStorage } from "../../helpers/file-service";
+import { v4 as uuidv4 } from "uuid";
 
 interface IVenueWithId extends IVenue {
   id: string;
@@ -29,6 +31,7 @@ const CreateEventPage = () => {
   });
   const { getAllVenues, createEvent } = useApi();
   const [venues, setVenues] = useState<IVenueWithId[]>([]);
+  const [images, setImages] = useState<FileObj[]>([]);
   useEffect(() => {
     getAllVenues().then((res) => {
       setVenues(res);
@@ -40,9 +43,19 @@ const CreateEventPage = () => {
   // console.log(event);
   const eventStatusOptions = ["open", "sold out", "cancelled"];
   const navigate = useNavigate();
+  const handleImageUpload = (e: any) => {
+    const files = [...e.target.files].map(file => {
+      return {
+          file,
+      }
+  })
+  setImages(
+      [...images, ...files]
+  )
+  };
 
   const dispatch = useDispatch();
-  const submitHandler = (e: any) => {
+  const submitHandler = async(e: any) => {
     e.preventDefault();
     if (
       event.activityStatus === "" ||
@@ -52,7 +65,7 @@ const CreateEventPage = () => {
       event.coverImg === "" ||
       event.description === "" ||
       event.endTime === "" ||
-      event.images.length === 0 ||
+      images.length === 0 ||
       event.name === "" ||
       event.startTime === ""
     ) {
@@ -60,7 +73,12 @@ const CreateEventPage = () => {
       return;
     }
     dispatch(loadingActions.setLoading({ isLoading: true, message: "" }));
-    createEvent(event).then((res) => {
+    const id = uuidv4();
+    const imageUrls = await uploadFilesToStorage(id, images);
+    createEvent({
+      ...event,
+      images: imageUrls
+    }).then((res) => {
       console.log(res);
       setEvent({
         name: "",
@@ -236,20 +254,21 @@ const CreateEventPage = () => {
                   <input
                     type="file"
                     id="venue-images"
-                    onChange={(e) => {
-                      const file = e.target.files?.[0];
-                      if (file) {
-                        const reader = new FileReader();
-                        reader.onload = () => {
-                          // create a hash of the image using bcrypt
-                          setEvent({
-                            ...event,
-                            images: [...event.images, reader.result as string],
-                          });
-                        };
-                        reader.readAsDataURL(file);
-                      }
-                    }}
+                    onChange= {handleImageUpload}
+                    // {(e) => {
+                    //   const file = e.target.files?.[0];
+                    //   if (file) {
+                    //     const reader = new FileReader();
+                    //     reader.onload = () => {
+                    //       // create a hash of the image using bcrypt
+                    //       setEvent({
+                    //         ...event,
+                    //         images: [...event.images, reader.result as string],
+                    //       });
+                    //     };
+                    //     reader.readAsDataURL(file);
+                    //   }
+                    // }}
                   />
                 </div>
                 <button type="submit" onClick={submitHandler}>
