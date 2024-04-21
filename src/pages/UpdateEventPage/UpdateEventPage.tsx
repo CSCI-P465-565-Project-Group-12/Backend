@@ -6,6 +6,9 @@ import { useEffect, useState } from "react";
 import { updateEventActions } from "../../store/update-event-store";
 import { useNavigate } from "react-router";
 import useApi from "../../hooks/apiHook";
+import { FileObj, uploadFilesToStorage } from "../../helpers/file-service";
+import { v4 as uuidv4 } from "uuid";
+
 interface IVenueWithId extends IVenue {
   id: string;
 }
@@ -38,10 +41,27 @@ const UpdateEventPage = () => {
     capacity: retrievedEvent.capacity,
     cost: retrievedEvent.cost,
   });
+  const [images, setImages] = useState<FileObj[]>([]);
   console.log(retrievedEvent);
-  const submitHandler = (e: any) => {
+
+  const handleImageUpload = (e: any) => {
+    const files = [...e.target.files].map(file => {
+      return {
+          file,
+      }
+  })
+  setImages(
+      [...images, ...files]
+  )
+  };
+
+  const submitHandler = async(e: any) => {
     e.preventDefault();
-    dispatch(updateEventActions.updateEventDetails(newEventData));
+    const imageUrls = await uploadFilesToStorage(uuidv4(), images);
+    dispatch(updateEventActions.updateEventDetails({
+      ...newEventData,
+      images: [...(imageUrls || []), ...newEventData.images]
+    }));
     alert("newEventData updated successfully");
     navigate("/");
   };
@@ -212,23 +232,24 @@ const UpdateEventPage = () => {
                   <input
                     type="file"
                     id="venue-images"
-                    onChange={(e) => {
-                      const file = e.target.files?.[0];
-                      if (file) {
-                        const reader = new FileReader();
-                        reader.onload = () => {
-                          // create a hash of the image using bcrypt
-                          setNewEventData({
-                            ...newEventData,
-                            images: [
-                              ...newEventData.images,
-                              reader.result as string,
-                            ],
-                          });
-                        };
-                        reader.readAsDataURL(file);
-                      }
-                    }}
+                    onChange={handleImageUpload}
+                    // {(e) => {
+                    //   const file = e.target.files?.[0];
+                    //   if (file) {
+                    //     const reader = new FileReader();
+                    //     reader.onload = () => {
+                    //       // create a hash of the image using bcrypt
+                    //       setNewEventData({
+                    //         ...newEventData,
+                    //         images: [
+                    //           ...newEventData.images,
+                    //           reader.result as string,
+                    //         ],
+                    //       });
+                    //     };
+                    //     reader.readAsDataURL(file);
+                    //   }
+                    // }}
                   />
                 </div>
                 <button type="submit" onClick={submitHandler}>
