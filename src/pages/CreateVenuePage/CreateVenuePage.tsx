@@ -38,18 +38,15 @@ const CreateVenuePage = () => {
   const dispatch = useDispatch();
 
   const handleImageUpload = (e: any) => {
-    const files = [...e.target.files].map(file => {
+    const files = [...e.target.files].map((file) => {
       return {
-          file,
-      }
-  })
-  setImages(
-      [...images, ...files]
-  )
+        file,
+      };
+    });
+    setImages([...images, ...files]);
   };
 
-
-  const submitHandler = async(e: any) => {
+  const submitHandler = async (e: any) => {
     e.preventDefault();
     // console.log(venue);
 
@@ -234,7 +231,7 @@ const CreateVenuePage = () => {
                 <input
                   type="file"
                   id="venue-images"
-                  onChange={ handleImageUpload}
+                  onChange={handleImageUpload}
                   //   (e) => {
                   //   const file = e.target.files?.[0];
                   //   if (file) {
@@ -250,7 +247,7 @@ const CreateVenuePage = () => {
                   //     reader.readAsDataURL(file);
                   //   }
                   // }
-                // }
+                  // }
                 />
               </div>
               <button

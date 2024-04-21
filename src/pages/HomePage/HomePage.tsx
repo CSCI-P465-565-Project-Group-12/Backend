@@ -27,8 +27,21 @@ const HomePage = () => {
   const navigate = useNavigate();
   const venueOwner = useSelector((state: any) => state.venueOwner.venue_owner);
   const venueOwnerProfile = useSelector((state: any) => state.venueOwner);
+
   // console.log(venueOwner);
   const isLoggenIn = useSelector((state: any) => state.login.isLoggedIn);
+
+  // set timer of token expiry of 1hr
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      alert("Session expired, please login again");
+      dispatch(loginActions.logout());
+      dispatch(venueOwnerActions.unSetVenueOwner());
+      dispatch(venueOwnerActions.unSetVenueOwnerProfile());
+      window.location.href = import.meta.env.VITE_MAIN_CLIENT as string;
+    }, 3600000);
+    return () => clearTimeout(timer);
+  }, []);
   useEffect(() => {
     dispatch(loadingActions.setLoading({ isLoading: true, message: "" }));
     fetchProfile(venueOwner.username).then((res) => {
@@ -164,7 +177,24 @@ const HomePage = () => {
           {/* <Footer /> */}
         </>
       ) : (
-        <h1>Please login to view this page</h1>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "50vh",
+            fontSize: "2rem",
+          }}
+        >
+          <h1>Please login to view this page</h1>
+          <button
+            onClick={() => {
+              window.location.href = import.meta.env.VITE_MAIN_CLIENT as string;
+            }}
+          >
+            Login
+          </button>
+        </div>
       )}
       <LoadingModal message="Loading your venues & events..." />
     </>

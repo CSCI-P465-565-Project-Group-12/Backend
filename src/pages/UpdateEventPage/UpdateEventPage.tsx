@@ -46,37 +46,38 @@ const UpdateEventPage = () => {
   console.log(retrievedEvent);
 
   const handleImageUpload = (e: any) => {
-    const files = [...e.target.files].map(file => {
+    const files = [...e.target.files].map((file) => {
       return {
-          file,
-      }
-  })
-  setImages(
-      [...images, ...files]
-  )
+        file,
+      };
+    });
+    setImages([...images, ...files]);
   };
 
   const handleCoverImageUpload = (e: any) => {
-    const files = [...e.target.files].map(file => {
+    const files = [...e.target.files].map((file) => {
       return {
-          file,
-      }
-    })
-    setCoverImg(
-      [...coverImg, ...files]
-    )
-  }
+        file,
+      };
+    });
+    setCoverImg([...coverImg, ...files]);
+  };
 
-  const submitHandler = async(e: any) => {
+  const submitHandler = async (e: any) => {
     e.preventDefault();
     const id = uuidv4();
     const imageUrls = await uploadFilesToStorage(id, images);
     const coverImgUrl = await uploadFilesToStorage(id, coverImg);
-    dispatch(updateEventActions.updateEventDetails({
-      ...newEventData,
-      images: [...(imageUrls || []), ...newEventData.images],
-      coverImg: (coverImgUrl && coverImgUrl.length>0 ? coverImgUrl[0] : newEventData.coverImg)
-    }));
+    dispatch(
+      updateEventActions.updateEventDetails({
+        ...newEventData,
+        images: [...(imageUrls || []), ...newEventData.images],
+        coverImg:
+          coverImgUrl && coverImgUrl.length > 0
+            ? coverImgUrl[0]
+            : newEventData.coverImg,
+      })
+    );
     alert("newEventData updated successfully");
     navigate("/");
   };
@@ -127,7 +128,7 @@ const UpdateEventPage = () => {
                 </div>
                 <div className="form-control">
                   <label htmlFor="newEventData-description">
-                    Venue Description
+                    Event Description
                   </label>
                   <textarea
                     id="newEventData-description"
@@ -244,7 +245,7 @@ const UpdateEventPage = () => {
                 </div>
 
                 <div className="form-control">
-                  <label htmlFor="venue-images">Venue Images</label>
+                  <label htmlFor="venue-images">Activity Images</label>
                   <input
                     type="file"
                     id="venue-images"
@@ -269,7 +270,7 @@ const UpdateEventPage = () => {
                   />
                 </div>
                 <button type="submit" onClick={submitHandler}>
-                  Create newEventData
+                  Create Event
                 </button>
               </form>
             </div>
